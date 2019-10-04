@@ -38,6 +38,7 @@
 <script>
 import { required, email } from 'vuelidate/lib/validators'
 import { validatePassword } from '../utils/regEx'
+import { registerUser } from '../services/users'
 
 export default {
   name: 'home',
@@ -82,14 +83,16 @@ export default {
   methods: {
     onSubmit () {
       let user = {
-        first_name: this.firstName,
-        last_name: this.lastName,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.password,
+        first_name: this.form.firstName,
+        last_name: this.form.lastName,
+        email: this.form.email,
+        password: this.form.password,
+        password_confirmation: this.form.password,
         locale: 'en'
       }
-      console.log({ user })
+      registerUser(user)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
     }
   }
 }
