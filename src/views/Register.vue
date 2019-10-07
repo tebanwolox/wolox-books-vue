@@ -26,7 +26,7 @@ import { formErrors } from '../utils/errors'
 import { registerFields } from './constants'
 
 export default {
-  name: 'home',
+  name: 'register',
   data: function () {
     return {
       form: {
