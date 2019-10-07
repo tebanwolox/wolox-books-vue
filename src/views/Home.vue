@@ -4,29 +4,12 @@
     h2.subtitle
       | BOOKS
     form.container-form(@submit.prevent="onSubmit")
-      label.label-input(for="firstNameRegister")
-        | First name
-      input.input-primary(id="firstNameRegister" type="text" v-model="$v.form.firstName.$model")
-      span.alert(v-if="$v.form.firstName.$error")
-        | This field is required
-
-      label.label-input(for="lastNameRegister")
-        | Last name
-      input.input-primary(id="lastNameRegister" type="text" v-model="$v.form.lastName.$model")
-      span.alert(v-if="$v.form.lastName.$error")
-        | This field is required
-
-      label.label-input(for="emailRegister")
-        | Email
-      input.input-primary(id="emailRegister" type="text" v-model="$v.form.email.$model")
-      span.alert(v-if="$v.form.email.$error")
-        | {{ errorEmail }}
-
-      label.label-input(for="passRegister")
-        | Password
-      input.input-primary(id="passRegister" type="password" v-model="$v.form.password.$model")
-      span.alert(v-if="$v.form.password.$error")
-        | {{ errorPassword }}
+      template(v-for="field in registerFields")
+        label.label-input(:for="field.id" class="label-input")
+          | {{ field.label }}
+        input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
+        span.alert(v-if="$v.form[field.model].$error")
+          | {{ getError(field.model) }}
 
       button.button-primary(type="submit" :disabled="$v.form.$invalid")
         | Sign up
@@ -39,33 +22,36 @@
 import { required, email } from 'vuelidate/lib/validators'
 import { validatePassword } from '../utils/regEx'
 import { registerUser } from '../services/users'
+import { formErrors } from '../utils/errors'
+import { registerFields } from './constants'
 
 export default {
   name: 'home',
   data: function () {
     return {
       form: {
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: ''
-      }
+      },
+      registerFields
     }
   },
   computed: {
     errorEmail () {
-      return !this.$v.form.email.required ? 'This field is required' : 'This is an email'
+      return this.$v.form.email.required ? formErrors.email : formErrors.required
     },
     errorPassword () {
-      return !this.$v.form.password.required ? 'This field is required' : 'The password must have uppercase letters and numbers'
+      return this.$v.form.password.required ? formErrors.password : formErrors.required
     }
   },
   validations: {
     form: {
-      firstName: {
+      first_name: {
         required
       },
-      lastName: {
+      last_name: {
         required
       },
       email: {
@@ -83,16 +69,18 @@ export default {
   methods: {
     onSubmit () {
       let user = {
-        first_name: this.form.firstName,
-        last_name: this.form.lastName,
-        email: this.form.email,
-        password: this.form.password,
+        ...this.form,
         password_confirmation: this.form.password,
         locale: 'en'
       }
       registerUser(user)
         .then(resp => console.log(resp))
         .catch(err => console.log(err))
+    },
+    getError (field) {
+      if (field === 'password') return this.errorPassword
+      if (field === 'email') return this.errorEmail
+      return formErrors.required
     }
   }
 }
@@ -143,7 +131,7 @@ export default {
   border-radius: 10px;
   color: $red;
   padding: 5px;
-  max-width: 100%;
+  width: 100%;
 }
 
 </style>
