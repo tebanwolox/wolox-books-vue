@@ -4,29 +4,12 @@
     h2.subtitle
       | BOOKS
     form.container-form(@submit.prevent="onSubmit")
-      label.label-input(for="first_name_register")
-        | First name
-      input.input-primary(id="first_name_register" type="text" v-model="$v.form.first_name.$model")
-      span.alert(v-if="$v.form.first_name.$error")
-        | {{ errorField }}
-
-      label.label-input(for="last_name_register")
-        | Last name
-      input.input-primary(id="last_name_register" type="text" v-model="$v.form.last_name.$model")
-      span.alert(v-if="$v.form.last_name.$error")
-        | {{ errorField }}
-
-      label.label-input(for="email_register")
-        | Email
-      input.input-primary(id="email_register" type="text" v-model="$v.form.email.$model")
-      span.alert(v-if="$v.form.email.$error")
-        | {{ errorEmail }}
-
-      label.label-input(for="pass_register")
-        | Password
-      input.input-primary(id="pass_register" type="password" v-model="$v.form.password.$model")
-      span.alert(v-if="$v.form.password.$error")
-        | {{ errorPassword }}
+      template(v-for="field in registerFields")
+        label.label-input(:for="field.id" class="label-input ")
+          | {{ field.label }}
+        input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
+        span.alert(v-if="$v.form[field.model].$error")
+          | {{ getError(field.model) }}
 
       button.button-primary(type="submit" :disabled="$v.form.$invalid")
         | Sign up
@@ -39,6 +22,7 @@
 import { required, email } from 'vuelidate/lib/validators'
 import { validatePassword } from '../utils/regEx'
 import { formErrors } from '../utils/errors'
+import { registerFields } from './constants'
 
 export default {
   name: 'home',
@@ -49,7 +33,8 @@ export default {
         last_name: '',
         email: '',
         password: ''
-      }
+      },
+      registerFields
     }
   },
   computed: {
@@ -87,10 +72,15 @@ export default {
     onSubmit () {
       let user = {
         ...this.form,
-        password_confirmation: this.password,
+        password_confirmation: this.form.password,
         locale: 'en'
       }
       console.log({ user })
+    },
+    getError (field) {
+      if (field === 'password') return this.errorPassword
+      if (field === 'email') return this.errorEmail
+      return this.errorField
     }
   }
 }
