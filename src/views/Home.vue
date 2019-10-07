@@ -4,7 +4,7 @@
     h2.subtitle
       | BOOKS
     form.container-form(@submit.prevent="onSubmit")
-      label.label-input(v-for="field in registerFields" :key="field.id" :for="field.id" class="label-input")
+      label.label-input(v-for="field in registerFields" :key="field.id" :for="field.id")
         | {{ field.label }}
         input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
         span.alert(v-if="$v.form[field.model].$error")
