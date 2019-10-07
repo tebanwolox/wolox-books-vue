@@ -4,27 +4,27 @@
     h2.subtitle
       | BOOKS
     form.container-form(@submit.prevent="onSubmit")
-      label.label-input(for="firstNameRegister")
+      label.label-input(for="first_name_register")
         | First name
-      input.input-primary(id="firstNameRegister" type="text" v-model="$v.form.firstName.$model")
-      span.alert(v-if="$v.form.firstName.$error")
-        | This field is required
+      input.input-primary(id="first_name_register" type="text" v-model="$v.form.first_name.$model")
+      span.alert(v-if="$v.form.first_name.$error")
+        | {{ errorField }}
 
-      label.label-input(for="lastNameRegister")
+      label.label-input(for="last_name_register")
         | Last name
-      input.input-primary(id="lastNameRegister" type="text" v-model="$v.form.lastName.$model")
-      span.alert(v-if="$v.form.lastName.$error")
-        | This field is required
+      input.input-primary(id="last_name_register" type="text" v-model="$v.form.last_name.$model")
+      span.alert(v-if="$v.form.last_name.$error")
+        | {{ errorField }}
 
-      label.label-input(for="emailRegister")
+      label.label-input(for="email_register")
         | Email
-      input.input-primary(id="emailRegister" type="text" v-model="$v.form.email.$model")
+      input.input-primary(id="email_register" type="text" v-model="$v.form.email.$model")
       span.alert(v-if="$v.form.email.$error")
         | {{ errorEmail }}
 
-      label.label-input(for="passRegister")
+      label.label-input(for="pass_register")
         | Password
-      input.input-primary(id="passRegister" type="password" v-model="$v.form.password.$model")
+      input.input-primary(id="pass_register" type="password" v-model="$v.form.password.$model")
       span.alert(v-if="$v.form.password.$error")
         | {{ errorPassword }}
 
@@ -38,33 +38,37 @@
 <script>
 import { required, email } from 'vuelidate/lib/validators'
 import { validatePassword } from '../utils/regEx'
+import { formErrors } from '../utils/errors'
 
 export default {
   name: 'home',
   data: function () {
     return {
       form: {
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: ''
       }
     }
   },
   computed: {
+    errorField () {
+      return formErrors.required
+    },
     errorEmail () {
-      return !this.$v.form.email.required ? 'This field is required' : 'This is an email'
+      return this.$v.form.email.required ? formErrors.email : formErrors.required
     },
     errorPassword () {
-      return !this.$v.form.password.required ? 'This field is required' : 'The password must have uppercase letters and numbers'
+      return this.$v.form.password.required ? formErrors.password : formErrors.required
     }
   },
   validations: {
     form: {
-      firstName: {
+      first_name: {
         required
       },
-      lastName: {
+      last_name: {
         required
       },
       email: {
@@ -82,10 +86,7 @@ export default {
   methods: {
     onSubmit () {
       let user = {
-        first_name: this.firstName,
-        last_name: this.lastName,
-        email: this.email,
-        password: this.password,
+        ...this.form,
         password_confirmation: this.password,
         locale: 'en'
       }
@@ -140,7 +141,7 @@ export default {
   border-radius: 10px;
   color: $red;
   padding: 5px;
-  max-width: 100%;
+  width: 100%;
 }
 
 </style>
