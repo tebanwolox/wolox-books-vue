@@ -1,12 +1,11 @@
 <template lang="pug">
-  div.auth-container
+  .auth-container
     img.logo(src="../assets/wolox_logo.svg" alt="Wolox logo")
     h2.subtitle
       | BOOKS
     form.container-form(@submit.prevent="onSubmit")
-      template(v-for="field in registerFields")
-        label.label-input(:for="field.id" class="label-input")
-          | {{ field.label }}
+      label.label-input(v-for="field in registerFields" :key="field.id" :for="field.id" class="label-input")
+        | {{ field.label }}
         input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
         span.alert(v-if="$v.form[field.model].$error")
           | {{ getError(field.model) }}
@@ -100,8 +99,10 @@ export default {
 
   .label-input {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
     font-size: 15px;
+    justify-content: flex-start;
     margin: 10px;
   }
 }
