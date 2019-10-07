@@ -1,12 +1,11 @@
 <template lang="pug">
-  div.auth-container
+  .auth-container
     img.logo(src="../assets/wolox_logo.svg" alt="Wolox logo")
     h2.subtitle
       | BOOKS
     form.container-form(@submit.prevent="onSubmit")
-      template(v-for="field in registerFields")
-        label.label-input(:for="field.id" class="label-input")
-          | {{ field.label }}
+      label.label-input(v-for="field in registerFields" :key="field.id" :for="field.id")
+        | {{ field.label }}
         input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
         span.alert(v-if="$v.form[field.model].$error")
           | {{ getError(field.model) }}
@@ -24,6 +23,7 @@ import { validatePassword } from '../utils/regEx'
 import { registerUser } from '../services/users'
 import { formErrors } from '../utils/errors'
 import { registerFields } from './constants'
+import { routes } from '../routes'
 
 export default {
   name: 'register',
@@ -75,7 +75,7 @@ export default {
       }
       registerUser(user)
         .then(resp =>
-          this.$router.push('login')
+          this.$router.push(routes.login)
         )
         .catch(err => console.log(err))
     },
@@ -85,7 +85,7 @@ export default {
       return formErrors.required
     },
     goLogin () {
-      this.$router.push('login')
+      this.$router.push(routes.login)
     }
   }
 }
@@ -105,8 +105,10 @@ export default {
 
   .label-input {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
     font-size: 15px;
+    justify-content: flex-start;
     margin: 10px;
   }
 }
