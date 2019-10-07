@@ -5,7 +5,7 @@
       | BOOKS
     form.container-form(@submit.prevent="onSubmit")
       template(v-for="field in registerFields")
-        label.label-input(:for="field.id" class="label-input ")
+        label.label-input(:for="field.id" class="label-input")
           | {{ field.label }}
         input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
         span.alert(v-if="$v.form[field.model].$error")
@@ -38,9 +38,6 @@ export default {
     }
   },
   computed: {
-    errorField () {
-      return formErrors.required
-    },
     errorEmail () {
       return this.$v.form.email.required ? formErrors.email : formErrors.required
     },
@@ -80,7 +77,7 @@ export default {
     getError (field) {
       if (field === 'password') return this.errorPassword
       if (field === 'email') return this.errorEmail
-      return this.errorField
+      return formErrors.required
     }
   }
 }
