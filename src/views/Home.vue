@@ -1,71 +1,108 @@
 <template lang="pug">
-  div(class="auth-container")
-    img(class="logo", src="../assets/wolox_logo.svg", alt="Wolox logo")
-    p(class="subtitle") BOOKS
-    form(class="container-form" @submit.prevent="onSubmit")
-      label(class="label-input") First name
-      input(type="text", class="input-primary" v-model="firstName")
+  .auth-container
+    img.logo(src="../assets/wolox_logo.svg" alt="Wolox logo")
+    h2.subtitle
+      | BOOKS
+    form.container-form(@submit.prevent="onSubmit")
+      label.label-input(v-for="field in registerFields" :key="field.id" :for="field.id")
+        | {{ field.label }}
+        input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
+        span.alert(v-if="$v.form[field.model].$error")
+          | {{ getError(field.model) }}
 
-      label(class="label-input") Last name
-      input(type="text", class="input-primary" v-model="lastName")
+      button.button-primary(type="submit" :disabled="$v.form.$invalid")
+        | Sign up
+    button.button-secondary(type="button")
+      | Login
 
-      label(class="label-input") Email
-      input(type="email", class="input-primary" v-model="email")
-
-      label(class="label-input") Password
-      input(type="password", class="input-primary" v-model="password")
-
-      button(type="submit", class="button-primary") Sign up
-    button(type="button" class="button-secondary") Login
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
+import { required, email } from 'vuelidate/lib/validators'
+import { validatePassword } from '../utils/regEx'
+import { registerUser } from '../services/users'
+import { formErrors } from '../utils/errors'
+import { registerFields } from './constants'
 
 export default {
-  name: "home",
-  components: {
-    HelloWorld
-  },
-  data: function() {
+  name: 'home',
+  data: function () {
     return {
-      firstName: null,
-      lastName: null,
-      email: null,
-      password: null
-    };
+      form: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: ''
+      },
+      registerFields
+    }
+  },
+  computed: {
+    errorEmail () {
+      return this.$v.form.email.required ? formErrors.email : formErrors.required
+    },
+    errorPassword () {
+      return this.$v.form.password.required ? formErrors.password : formErrors.required
+    }
+  },
+  validations: {
+    form: {
+      first_name: {
+        required
+      },
+      last_name: {
+        required
+      },
+      email: {
+        required,
+        email
+      },
+      password: {
+        required,
+        strongPassword (password) {
+          return validatePassword(password)
+        }
+      }
+    }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       let user = {
-        first_name: this.firstName,
-        last_name: this.lastName,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.password,
-        locale: "en"
-      };
-      console.log({ user });
+        ...this.form,
+        password_confirmation: this.form.password,
+        locale: 'en'
+      }
+      registerUser(user)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
+    },
+    getError (field) {
+      if (field === 'password') return this.errorPassword
+      if (field === 'email') return this.errorEmail
+      return formErrors.required
     }
   }
-};
+}
 </script>
 
-<style lang="scss">
-@import '../scss/colors.scss';
-@import '../scss/buttons.scss';
-@import '../scss/inputs.scss';
+<style lang="scss" scoped>
+@import "../scss/colors.scss";
+@import "../scss/buttons.scss";
+@import "../scss/inputs.scss";
 
 .container-form {
   border-bottom: 3px solid $grey-soft;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   width: 100%;
 
   .label-input {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
     font-size: 15px;
+    justify-content: flex-start;
     margin: 10px;
   }
 }
@@ -79,7 +116,6 @@ export default {
   margin: 150px auto;
   max-width: 350px;
   padding: 10px;
-  width: 100%;
 
   .logo {
     height: 40px;
@@ -93,10 +129,10 @@ export default {
 }
 
 .alert {
-  background-color: $red;
   border-radius: 10px;
-  color: $white;
-  padding: 10px;
+  color: $red;
+  padding: 5px;
   width: 100%;
 }
+
 </style>
