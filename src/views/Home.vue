@@ -20,6 +20,7 @@
 <script>
 import { required, email } from 'vuelidate/lib/validators'
 import { validatePassword } from '../utils/regEx'
+import { registerUser } from '../services/users'
 import { formErrors } from '../utils/errors'
 import { registerFields } from './constants'
 
@@ -71,7 +72,9 @@ export default {
         password_confirmation: this.form.password,
         locale: 'en'
       }
-      console.log({ user })
+      registerUser(user)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
     },
     getError (field) {
       if (field === 'password') return this.errorPassword
