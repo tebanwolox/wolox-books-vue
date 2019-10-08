@@ -9,7 +9,6 @@
         input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
         span.alert(v-if="$v.form[field.model].$error")
           | {{ getError(field.model) }}
-
       button.button-primary(type="submit" :disabled="$v.form.$invalid")
         | Sign up
     button.button-secondary(type="button" @click="goLogin()")
@@ -75,7 +74,7 @@ export default {
       }
       registerUser(user)
         .then(resp =>
-          this.$router.push(routes.login)
+          this.$router.push(routes.LOGIN)
         )
         .catch(err => console.log(err))
     },
@@ -85,7 +84,7 @@ export default {
       return formErrors.required
     },
     goLogin () {
-      this.$router.push(routes.login)
+      this.$router.push(routes.LOGIN)
     }
   }
 }

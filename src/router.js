@@ -9,16 +9,16 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: routes.home,
+      path: routes.HOME,
       redirect: { name: 'login' }
     },
     {
-      path: routes.login,
+      path: routes.LOGIN,
       name: 'login',
       component: Login
     },
     {
-      path: routes.sign_up,
+      path: routes.SIGN_UP,
       name: 'register',
       component: Register
     }

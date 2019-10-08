@@ -9,7 +9,6 @@
         input.input-primary(:id="field.id" :type="field.type" v-model="$v.form[field.model].$model")
         span.alert(v-if="$v.form[field.model].$error")
           | {{ getError }}
-
       button.button-primary(type="submit" :disabled="$v.form.$invalid")
         | Login
     button.button-secondary(type="button" @click="goSignUp()")
@@ -52,13 +51,12 @@ export default {
   },
   methods: {
     onSubmit () {
-      let session = { ...this.form }
-      getSession(session)
+      getSession(this.form)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     },
     goSignUp () {
-      this.$router.push(routes.sign_up)
+      this.$router.push(routes.SIGN_UP)
     }
   }
 }
