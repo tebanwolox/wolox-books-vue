@@ -75,7 +75,7 @@ export default {
       }
       registerUser(user)
         .then(resp =>
-          this.$router.push(routes.login)
+          this.$router.push(routes.LOGIN)
         )
         .catch(err => console.log(err))
     },
@@ -85,7 +85,7 @@ export default {
       return formErrors.required
     },
     goLogin () {
-      this.$router.push(routes.login)
+      this.$router.push(routes.LOGIN)
     }
   }
 }
