@@ -12,7 +12,7 @@
 
       button.button-primary(type="submit" :disabled="$v.form.$invalid")
         | Sign up
-    button.button-secondary(type="button")
+    button.button-secondary(type="button" @click="goLogin()")
       | Login
 
 </template>
@@ -23,9 +23,10 @@ import { validatePassword } from '../utils/regEx'
 import { registerUser } from '../services/users'
 import { formErrors } from '../utils/errors'
 import { registerFields } from './constants'
+import { routes } from '../routes'
 
 export default {
-  name: 'home',
+  name: 'register',
   data: function () {
     return {
       form: {
@@ -73,13 +74,18 @@ export default {
         locale: 'en'
       }
       registerUser(user)
-        .then(resp => console.log(resp))
+        .then(resp =>
+          this.$router.push(routes.LOGIN)
+        )
         .catch(err => console.log(err))
     },
     getError (field) {
       if (field === 'password') return this.errorPassword
       if (field === 'email') return this.errorEmail
       return formErrors.required
+    },
+    goLogin () {
+      this.$router.push(routes.LOGIN)
     }
   }
 }
