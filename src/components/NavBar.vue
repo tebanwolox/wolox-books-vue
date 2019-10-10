@@ -7,7 +7,8 @@
     button.navbar-button(@click="logout()")
       | Logout
 
-</template>
+</template>ç
+
 <script>
 import { removeToken } from '../services/localStorage'
 import { routes } from '../routes'
@@ -22,6 +23,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 @import "../scss/colors.scss";
 
