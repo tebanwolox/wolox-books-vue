@@ -8,6 +8,7 @@
       | Logout
 
 </template>
+
 <script>
 import { removeToken } from '../services/localStorage'
 import { routes } from '../routes'
@@ -22,6 +23,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 @import "../scss/colors.scss";
 
