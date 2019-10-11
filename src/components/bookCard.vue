@@ -1,6 +1,6 @@
 <template lang="pug">
   .book
-    img.book-logo(:src="book.image_url" :alt="book.title")
+    img.book-logo(:src="book.image_url" :alt="`${book.title} logo`")
     h3.book-title
       | {{ book.title }}
     h4.book-author
