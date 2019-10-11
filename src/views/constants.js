@@ -24,3 +24,18 @@ export const registerFields = [
     label: 'Password'
   }
 ]
+
+export const loginFields = [
+  {
+    id: 'email_register',
+    type: 'text',
+    model: 'email',
+    label: 'Email'
+  },
+  {
+    id: 'pass_register',
+    type: 'password',
+    model: 'password',
+    label: 'Password'
+  }
+]
