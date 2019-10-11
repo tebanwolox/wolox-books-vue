@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from './views/Register.vue'
 import Login from './views/Login.vue'
-import NavBar from './components/NavBar.vue'
+import BookList from './views/BookList.vue'
 import { routes } from './routes'
 
 Vue.use(Router)
@@ -11,8 +11,7 @@ export default new Router({
   routes: [
     {
       path: routes.HOME,
-      name: 'navBar',
-      component: NavBar
+      redirect: routes.LOGIN
     },
     {
       path: routes.LOGIN,
@@ -23,6 +22,11 @@ export default new Router({
       path: routes.SIGN_UP,
       name: 'register',
       component: Register
+    },
+    {
+      path: routes.BOOKS,
+      name: 'books',
+      component: BookList
     }
   ]
 })
