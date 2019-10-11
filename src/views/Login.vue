@@ -22,6 +22,7 @@ import { formErrors } from './../utils/errors'
 import { required } from 'vuelidate/lib/validators'
 import { routes } from '../routes'
 import { getSession } from '../services/users'
+import { setToken } from '../services/localStorage'
 
 export default {
   name: 'login',
@@ -52,7 +53,10 @@ export default {
   methods: {
     onSubmit () {
       getSession(this.form)
-        .then(res => console.log(res.data))
+        .then(res => {
+          setToken(res.data.access_token)
+          this.$router.push(routes.HOME)
+        })
         .catch(err => console.log(err))
     },
     goSignUp () {
