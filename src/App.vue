@@ -1,7 +1,30 @@
 <template lang="pug">
   div(id="app")
+    navBar(v-if="isLog")
     router-view
 </template>
+
+<script>
+import { getToken } from './services/localStorage'
+import navBar from './components/NavBar'
+
+export default {
+  components: {
+    navBar
+  },
+  data: function () {
+    return {
+      isLog: ''
+    }
+  },
+  mounted () {
+    this.isLog = getToken()
+  },
+  updated () {
+    this.isLog = getToken()
+  }
+}
+</script>
 
 <style lang="scss">
 @import './scss/application.scss';

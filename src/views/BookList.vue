@@ -1,9 +1,6 @@
 <template lang="pug">
-  .book-page-container
-    navBar
-    .books-container
-      bookCard(v-for="book in books" :key="book.id" :book="book")
-
+  .books-container
+    bookCard(v-for="book in books" :key="book.id" :book="book")
 </template>
 
 <script>
@@ -36,11 +33,8 @@ export default {
 <style lang="scss" scoped>
 @import "../scss/colors.scss";
 
-.book-page-container {
-  background-color: $grey-soft-secundary;
-}
-
 .books-container {
+  background-color: $grey-soft-secundary;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
