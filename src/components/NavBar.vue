@@ -19,6 +19,7 @@ export default {
     logout () {
       removeToken()
       this.$router.push(routes.LOGIN)
+      this.$store.dispatch('logging')
     }
   }
 }

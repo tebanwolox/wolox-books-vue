@@ -5,23 +5,19 @@
 </template>
 
 <script>
-import { getToken } from './services/localStorage'
 import navBar from './components/NavBar'
 
 export default {
   components: {
     navBar
   },
-  data: function () {
-    return {
-      isLog: ''
-    }
-  },
   mounted () {
-    this.isLog = getToken()
+    this.$store.dispatch('logging')
   },
-  updated () {
-    this.isLog = getToken()
+  computed: {
+    isLog () {
+      return this.$store.state.loggingStatus
+    }
   }
 }
 </script>

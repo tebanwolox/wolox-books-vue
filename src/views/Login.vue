@@ -54,8 +54,13 @@ export default {
     onSubmit () {
       getSession(this.form)
         .then(res => {
-          setToken(res.data.access_token)
-          this.$router.push(routes.BOOKS)
+          console.log(res)
+          if (res.data.access_token) {
+            setToken(res.data.access_token)
+            this.$store.dispatch('logging')
+            this.$store.dispatch('findBooks')
+            this.$router.push(routes.BOOKS)
+          }
         })
         .catch(err => console.log(err))
     },
@@ -64,5 +69,4 @@ export default {
     }
   }
 }
-
 </script>

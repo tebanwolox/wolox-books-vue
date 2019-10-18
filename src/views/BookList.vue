@@ -6,7 +6,6 @@
 <script>
 import navBar from '../components/NavBar'
 import bookCard from '../components/bookCard'
-import { getBooks } from '../services/books'
 
 export default {
   name: 'bookList',
@@ -14,17 +13,15 @@ export default {
     navBar,
     bookCard
   },
-  data: function () {
-    return {
-      books: []
+  mounted () {
+    if (this.$store.state.books.length === 0) {
+      this.$store.dispatch('findBooks')
     }
   },
-  mounted () {
-    getBooks()
-      .then(res => {
-        this.books = res.data
-      })
-      .catch(err => console.log(err))
+  computed: {
+    books () {
+      return this.$store.state.books
+    }
   }
 }
 
