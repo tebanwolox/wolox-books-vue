@@ -14,9 +14,7 @@ export default {
     bookCard
   },
   mounted () {
-    if (this.$store.state.books.length === 0) {
-      this.$store.dispatch('findBooks')
-    }
+    if (this.$store.state.books.length === 0) this.$store.dispatch('findBooks')
   },
   computed: {
     books () {

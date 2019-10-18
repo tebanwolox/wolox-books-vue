@@ -21,9 +21,7 @@ export default new Vuex.Store({
   actions: {
     findBooks (context) {
       getBooks()
-        .then(res => {
-          context.commit('SET_BOOKS', res.data)
-        })
+        .then(res => context.commit('SET_BOOKS', res.data))
         .catch(err => console.log(err))
     },
     logging (context) {
@@ -32,11 +30,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    books: state => {
-      return state.books
-    },
-    loggingStatus: state => {
-      return state.loggingStatus
-    }
+    books: state => state.books,
+    loggingStatus: state => state.loggingStatus
   }
 })

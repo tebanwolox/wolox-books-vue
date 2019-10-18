@@ -54,7 +54,6 @@ export default {
     onSubmit () {
       getSession(this.form)
         .then(res => {
-          console.log(res)
           if (res.data.access_token) {
             setToken(res.data.access_token)
             this.$store.dispatch('logging')
