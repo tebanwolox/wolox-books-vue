@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { getToken } from './services/localStorage'
 import navBar from './components/NavBar'
+import { isAuth } from './config/api'
 
 export default {
   components: {
@@ -18,10 +18,10 @@ export default {
     }
   },
   mounted () {
-    this.isLog = getToken()
+    this.isLog = isAuth()
   },
   updated () {
-    this.isLog = getToken()
+    this.isLog = isAuth()
   }
 }
 </script>

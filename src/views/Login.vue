@@ -54,8 +54,10 @@ export default {
     onSubmit () {
       getSession(this.form)
         .then(res => {
-          setToken(res.data.access_token)
-          this.$router.push(routes.BOOKS)
+          if (res.data.access_token) {
+            setToken(res.data.access_token)
+            this.$router.push(routes.BOOKS)
+          }
         })
         .catch(err => console.log(err))
     },

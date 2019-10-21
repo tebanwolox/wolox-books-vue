@@ -4,12 +4,12 @@ import Register from './views/Register.vue'
 import Login from './views/Login.vue'
 import BookList from './views/BookList.vue'
 import { routes } from './routes'
-import { getToken } from './services/localStorage'
+import { isAuth } from './config/api'
 
 Vue.use(Router)
 
 const ifNotAuthenticated = (to, from, next) => {
-  if (!getToken()) {
+  if (!isAuth()) {
     next()
     return
   }
@@ -17,7 +17,8 @@ const ifNotAuthenticated = (to, from, next) => {
 }
 
 const ifAuthenticated = (to, from, next) => {
-  if (getToken()) {
+  console.log(isAuth())
+  if (isAuth()) {
     next()
     return
   }
