@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getBooks } from './services/books'
-import { getToken } from './services/localStorage'
+import { isAuth } from './config/api'
 
 Vue.use(Vuex)
 
@@ -25,7 +25,7 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     logging (context) {
-      if (getToken()) context.commit('SET_LOGGING_STATUS', true)
+      if (isAuth()) context.commit('SET_LOGGING_STATUS', true)
       else context.commit('SET_LOGGING_STATUS', false)
     }
   },

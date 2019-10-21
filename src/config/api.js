@@ -7,5 +7,7 @@ export const api = create({
 })
 
 api.addRequestTransform(req => {
-  if (req.url === '/books') req.headers['Authorization'] = getToken()
+  if (!req.headers['Authorization']) req.headers['Authorization'] = getToken()
 })
+
+export const isAuth = () => api.headers['Authorization'] || getToken()
