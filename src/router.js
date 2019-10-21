@@ -17,7 +17,6 @@ const ifNotAuthenticated = (to, from, next) => {
 }
 
 const ifAuthenticated = (to, from, next) => {
-  console.log(isAuth())
   if (isAuth()) {
     next()
     return
