@@ -6,8 +6,7 @@
         | BOOKS
     button.navbar-button(@click="logout()")
       | Logout
-
-</template>ç
+</template>
 
 <script>
 import { removeToken } from '../services/localStorage'

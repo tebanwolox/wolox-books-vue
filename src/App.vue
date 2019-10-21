@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     isLog () {
-      return this.$store.state.loggingStatus
+      return this.$store.getters.loggingStatus
     }
   }
 }
