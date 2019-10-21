@@ -22,7 +22,6 @@ import { formErrors } from './../utils/errors'
 import { required } from 'vuelidate/lib/validators'
 import { routes } from '../routes'
 import { getSession } from '../services/users'
-import { setToken } from '../services/localStorage'
 
 export default {
   name: 'login',
@@ -54,12 +53,8 @@ export default {
     onSubmit () {
       getSession(this.form)
         .then(res => {
-          if (res.data.access_token) {
-            setToken(res.data.access_token)
-            this.$store.dispatch('logging')
-            this.$store.dispatch('findBooks')
-            this.$router.push(routes.BOOKS)
-          }
+          this.$store.dispatch('logging', res.data)
+          this.$router.push(routes.BOOKS)
         })
         .catch(err => console.log(err))
     },

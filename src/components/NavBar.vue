@@ -9,16 +9,14 @@
 </template>
 
 <script>
-import { removeToken } from '../services/localStorage'
 import { routes } from '../routes'
 
 export default {
   name: 'NavBar',
   methods: {
     logout () {
-      removeToken()
+      this.$store.dispatch('loggout')
       this.$router.push(routes.LOGIN)
-      this.$store.dispatch('logging')
     }
   }
 }

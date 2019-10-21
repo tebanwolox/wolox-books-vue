@@ -12,7 +12,7 @@ export default {
     navBar
   },
   mounted () {
-    this.$store.dispatch('logging')
+    this.$store.dispatch('verifiedlogging')
   },
   computed: {
     isLog () {
