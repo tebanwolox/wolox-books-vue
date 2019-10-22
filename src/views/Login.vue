@@ -54,7 +54,7 @@ export default {
       getSession(this.form)
         .then(res => {
           this.$store.dispatch('logging', res.data)
-          this.$router.push(routes.BOOKS)
+          if (this.$store.getters.loggingStatus) this.$router.push(routes.BOOKS)
         })
         .catch(err => console.log(err))
     },
