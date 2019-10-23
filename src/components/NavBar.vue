@@ -6,7 +6,6 @@
         | BOOKS
     button.navbar-button(@click="logout()")
       | Logout
-
 </template>
 
 <script>

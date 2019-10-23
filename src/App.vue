@@ -1,7 +1,30 @@
 <template lang="pug">
   div(id="app")
+    navBar(v-if="isLog")
     router-view
 </template>
+
+<script>
+import navBar from './components/NavBar'
+import { isAuth } from './config/api'
+
+export default {
+  components: {
+    navBar
+  },
+  data: function () {
+    return {
+      isLog: ''
+    }
+  },
+  mounted () {
+    this.isLog = isAuth()
+  },
+  updated () {
+    this.isLog = isAuth()
+  }
+}
+</script>
 
 <style lang="scss">
 @import './scss/application.scss';
