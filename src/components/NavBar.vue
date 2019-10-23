@@ -5,7 +5,7 @@
       h2.subtitle
         | BOOKS
     button.navbar-button(@click="closeSession()")
-      | Loggout
+      | Sign Out
 </template>
 
 <script>
