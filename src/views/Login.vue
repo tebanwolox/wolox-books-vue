@@ -22,6 +22,7 @@ import { formErrors } from './../utils/errors'
 import { required } from 'vuelidate/lib/validators'
 import { routes } from '../routes'
 import { getSession } from '../services/users'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'login',
@@ -45,16 +46,18 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['loggingStatus']),
     getError () {
       return formErrors.required
     }
   },
   methods: {
+    ...mapActions(['logging']),
     onSubmit () {
       getSession(this.form)
         .then(res => {
-          this.$store.dispatch('logging', res.data)
-          if (this.$store.getters.loggingStatus) this.$router.push(routes.BOOKS)
+          this.logging(res.data)
+          if (this.loggingStatus) this.$router.push(routes.BOOKS)
         })
         .catch(err => console.log(err))
     },

@@ -6,6 +6,7 @@
 <script>
 import navBar from '../components/NavBar'
 import bookCard from '../components/bookCard'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'bookList',
@@ -14,13 +15,10 @@ export default {
     bookCard
   },
   mounted () {
-    if (this.$store.getters.books.length === 0) this.$store.dispatch('findBooks')
+    if (this.books.length === 0) this.findBooks()
   },
-  computed: {
-    books () {
-      return this.$store.getters.books
-    }
-  }
+  computed: mapGetters(['books']),
+  methods: mapActions(['findBooks'])
 }
 
 </script>

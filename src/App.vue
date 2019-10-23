@@ -1,25 +1,24 @@
 <template lang="pug">
   div(id="app")
-    navBar(v-if="isLog")
+    navBar(v-if="loggingStatus")
     router-view
 </template>
 
 <script>
 import navBar from './components/NavBar'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
     navBar
   },
   mounted () {
-    this.$store.dispatch('verifiedlogging')
+    this.verifiedlogging()
   },
-  computed: {
-    isLog () {
-      return this.$store.getters.loggingStatus
-    }
-  }
+  computed: mapState(['loggingStatus']),
+  methods: mapActions(['verifiedlogging'])
 }
+
 </script>
 
 <style lang="scss">

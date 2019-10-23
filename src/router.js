@@ -8,23 +8,7 @@ import { isAuth } from './config/api'
 
 Vue.use(Router)
 
-const ifNotAuthenticated = (to, from, next) => {
-  if (!isAuth()) {
-    next()
-    return
-  }
-  next(routes.BOOKS)
-}
-
-const ifAuthenticated = (to, from, next) => {
-  if (isAuth()) {
-    next()
-    return
-  }
-  next(routes.LOGIN)
-}
-
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: routes.HOME,
@@ -34,19 +18,34 @@ export default new Router({
       path: routes.LOGIN,
       name: 'login',
       component: Login,
-      beforeEnter: ifNotAuthenticated
+      meta: {
+        private: false
+      }
     },
     {
       path: routes.SIGN_UP,
       name: 'register',
       component: Register,
-      beforeEnter: ifNotAuthenticated
+      meta: {
+        private: false
+      }
     },
     {
       path: routes.BOOKS,
       name: 'books',
       component: BookList,
-      beforeEnter: ifAuthenticated
+      meta: {
+        private: true
+      }
     }
   ]
 })
+
+router.beforeEach((to, _, next) => {
+  const auth = isAuth()
+  if ((to.meta.private && auth) || (!to.meta.private && !auth)) next()
+  else if (auth) next(routes.BOOKS)
+  else next(routes.LOGIN)
+})
+
+export default router
