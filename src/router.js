@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Register from './views/Register.vue'
 import Login from './views/Login.vue'
 import BookList from './views/BookList.vue'
+import BookDetail from './views/BookDetail.vue'
 import { routes } from './routes'
 import { isAuth } from './config/api'
 
@@ -32,8 +33,16 @@ const router = new Router({
     },
     {
       path: routes.BOOKS,
-      name: 'books',
       component: BookList,
+      name: 'books',
+      meta: {
+        private: true
+      }
+    },
+    {
+      path: routes.BOOK_DETAIL,
+      name: 'bookDetail',
+      component: BookDetail,
       meta: {
         private: true
       }
@@ -42,6 +51,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, _, next) => {
+  console.log(to)
   const auth = isAuth()
   if ((to.meta.private && auth) || (!to.meta.private && !auth)) next()
   else if (auth) next(routes.BOOKS)

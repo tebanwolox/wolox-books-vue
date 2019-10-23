@@ -1,5 +1,5 @@
 <template lang="pug">
-  .book
+  .book(@click="viewDetail()")
     img.book-logo(:src="book.image_url" :alt="`${book.title} logo`")
     h3.book-title
       | {{ book.title }}
@@ -8,11 +8,18 @@
 </template>
 
 <script>
+import { routes } from '../routes'
+
 export default {
   name: 'BookCard',
   props: {
     book: {
       type: Object
+    }
+  },
+  methods: {
+    viewDetail () {
+      this.$router.push(`${routes.BOOKS}/${this.book.id}`)
     }
   }
 }
