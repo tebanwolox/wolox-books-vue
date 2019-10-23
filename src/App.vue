@@ -6,7 +6,7 @@
 
 <script>
 import navBar from './components/NavBar'
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -15,7 +15,7 @@ export default {
   mounted () {
     this.verifiedlogging()
   },
-  computed: mapState(['loggingStatus']),
+  computed: mapGetters(['loggingStatus']),
   methods: mapActions(['verifiedlogging'])
 }
 
