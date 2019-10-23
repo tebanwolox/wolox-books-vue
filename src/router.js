@@ -19,39 +19,30 @@ const router = new Router({
       path: routes.LOGIN,
       name: 'login',
       component: Login,
-      meta: {
-        private: false
-      }
+      meta: { private: false }
     },
     {
       path: routes.SIGN_UP,
       name: 'register',
       component: Register,
-      meta: {
-        private: false
-      }
+      meta: { private: false }
     },
     {
       path: routes.BOOKS,
       component: BookList,
       name: 'books',
-      meta: {
-        private: true
-      }
+      meta: { private: true }
     },
     {
       path: routes.BOOK_DETAIL,
       name: 'bookDetail',
       component: BookDetail,
-      meta: {
-        private: true
-      }
+      meta: { private: true }
     }
   ]
 })
 
 router.beforeEach((to, _, next) => {
-  console.log(to)
   const auth = isAuth()
   if ((to.meta.private && auth) || (!to.meta.private && !auth)) next()
   else if (auth) next(routes.BOOKS)
