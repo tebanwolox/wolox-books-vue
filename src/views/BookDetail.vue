@@ -8,15 +8,15 @@
           span.book-subtitle
             | ({{ book.genre }})
         h3.book-detail
-          | Book author:
+          | {{ $t('bookDetail.bookAuthor') }}
           span.sub-detail
             | {{ book.author }}
         h3.book-detail
-          | Publisher:
+          | {{ $t('bookDetail.publisher') }}
           span.sub-detail
             | {{ book.publisher }}
         h3.book-detail
-          | Year of publication:
+          | {{ $t('bookDetail.yearPublication') }}
           span.sub-detail
             | {{book.year}}
 </template>

@@ -3,9 +3,9 @@
     .logo-container
       img.navbar-logo(src="../assets/wolox_logo.svg" alt="Wolox logo")
       h2.subtitle
-        | BOOKS
+        | {{ $t('navbar.books') }}
     button.navbar-button(@click="closeSession()")
-      | Sign Out
+      | {{ $t('navbar.signOut') }}
 </template>
 
 <script>

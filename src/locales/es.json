@@ -1,0 +1,11 @@
+{
+    "bookDetail": {
+      "bookAuthor": "Autor del libro: ",
+      "publisher": "Editorial: ",
+      "yearPublication": "Año de publicación: "
+    },
+    "navbar": {
+      "books": "LIBROS",
+      "signOut": "Cerrar sesión"
+    }
+  }
