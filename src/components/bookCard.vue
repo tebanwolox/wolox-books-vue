@@ -5,7 +5,6 @@
       | {{ book.title }}
     h4.book-author
       | {{book.author}}
-
 </template>
 
 <script>

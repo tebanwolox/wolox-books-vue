@@ -4,19 +4,20 @@
       img.navbar-logo(src="../assets/wolox_logo.svg" alt="Wolox logo")
       h2.subtitle
         | BOOKS
-    button.navbar-button(@click="logout()")
-      | Logout
+    button.navbar-button(@click="closeSession()")
+      | Sign Out
 </template>
 
 <script>
-import { removeToken } from '../services/localStorage'
 import { routes } from '../routes'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'NavBar',
   methods: {
-    logout () {
-      removeToken()
+    ...mapActions(['loggout']),
+    closeSession () {
+      this.loggout()
       this.$router.push(routes.LOGIN)
     }
   }

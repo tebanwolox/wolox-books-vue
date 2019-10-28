@@ -6,7 +6,7 @@
 <script>
 import navBar from '../components/NavBar'
 import bookCard from '../components/bookCard'
-import { getBooks } from '../services/books'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'bookList',
@@ -14,18 +14,11 @@ export default {
     navBar,
     bookCard
   },
-  data: function () {
-    return {
-      books: []
-    }
-  },
   mounted () {
-    getBooks()
-      .then(res => {
-        this.books = res.data
-      })
-      .catch(err => console.log(err))
-  }
+    if (this.books.length === 0) this.findBooks()
+  },
+  computed: mapGetters(['books']),
+  methods: mapActions(['findBooks'])
 }
 
 </script>

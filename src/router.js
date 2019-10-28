@@ -44,10 +44,8 @@ const router = new Router({
 router.beforeEach((to, _, next) => {
   const auth = isAuth()
   if ((to.meta.private && auth) || (!to.meta.private && !auth)) next()
-  else {
-    if (auth) next(routes.BOOKS)
-    else next(routes.LOGIN)
-  }
+  else if (auth) next(routes.BOOKS)
+  else next(routes.LOGIN)
 })
 
 export default router

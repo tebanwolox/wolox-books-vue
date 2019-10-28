@@ -1,29 +1,24 @@
 <template lang="pug">
   div(id="app")
-    navBar(v-if="isLog")
+    navBar(v-if="loggingStatus")
     router-view
 </template>
 
 <script>
 import navBar from './components/NavBar'
-import { isAuth } from './config/api'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
     navBar
   },
-  data: function () {
-    return {
-      isLog: ''
-    }
-  },
   mounted () {
-    this.isLog = isAuth()
+    this.verifiedlogging()
   },
-  updated () {
-    this.isLog = isAuth()
-  }
+  computed: mapGetters(['loggingStatus']),
+  methods: mapActions(['verifiedlogging'])
 }
+
 </script>
 
 <style lang="scss">
