@@ -26,11 +26,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'bookDetail',
-  data: function () {
-    return {
-      book: null
-    }
-  },
   mounted () {
     this.bookDetail(this.$route.params.id)
   },
