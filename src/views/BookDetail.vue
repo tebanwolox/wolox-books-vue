@@ -1,28 +1,28 @@
 <template lang="pug">
   .detail-container
-    .book-container(v-if="book")
-      img.book-logo(:src="book.image_url")
+    .book-container(v-if="currentBook")
+      img.book-logo(:src="currentBook.image_url" :alt="`${currentBook.title} logo`")
       .book-info
         h1.book-title
-          | {{ book.title }}
+          | {{ currentBook.title }}
           span.book-subtitle
-            | ({{ book.genre }})
+            | ({{ currentBook.genre }})
         h3.book-detail
           | Book author:
           span.sub-detail
-            | {{ book.author }}
+            | {{ currentBook.author }}
         h3.book-detail
           | Publisher:
           span.sub-detail
-            | {{ book.publisher }}
+            | {{ currentBook.publisher }}
         h3.book-detail
           | Year of publication:
           span.sub-detail
-            | {{book.year}}
+            | {{ currentBook.year }}
 </template>
 
 <script>
-import { getBookDetail } from '../services/books'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'bookDetail',
@@ -32,10 +32,10 @@ export default {
     }
   },
   mounted () {
-    getBookDetail(this.$route.params.id).then(res => {
-      this.book = res.data
-    })
-  }
+    this.bookDetail(this.$route.params.id)
+  },
+  methods: mapActions(['bookDetail']),
+  computed: mapGetters(['currentBook'])
 }
 
 </script>

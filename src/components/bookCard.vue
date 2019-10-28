@@ -1,10 +1,10 @@
 <template lang="pug">
-  .book(@click="viewDetail()")
+  router-link.book(:to='{ path: bookDetailRoute }')
     img.book-logo(:src="book.image_url" :alt="`${book.title} logo`")
     h3.book-title
       | {{ book.title }}
     h4.book-author
-      | {{book.author}}
+      | {{ book.author }}
 </template>
 
 <script>
@@ -17,9 +17,9 @@ export default {
       type: Object
     }
   },
-  methods: {
-    viewDetail () {
-      this.$router.push(`${routes.BOOKS}/${this.book.id}`)
+  computed: {
+    bookDetailRoute () {
+      return `${routes.BOOKS}/${this.book.id}`
     }
   }
 }
