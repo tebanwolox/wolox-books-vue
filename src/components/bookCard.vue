@@ -1,18 +1,25 @@
 <template lang="pug">
-  .book
+  router-link.book(:to='{ path: bookDetailRoute }')
     img.book-logo(:src="book.image_url" :alt="`${book.title} logo`")
     h3.book-title
       | {{ book.title }}
     h4.book-author
-      | {{book.author}}
+      | {{ book.author }}
 </template>
 
 <script>
+import { routes } from '../routes'
+
 export default {
   name: 'BookCard',
   props: {
     book: {
       type: Object
+    }
+  },
+  computed: {
+    bookDetailRoute () {
+      return `${routes.BOOKS}/${this.book.id}`
     }
   }
 }

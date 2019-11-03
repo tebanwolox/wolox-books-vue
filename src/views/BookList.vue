@@ -4,14 +4,12 @@
 </template>
 
 <script>
-import navBar from '../components/NavBar'
 import bookCard from '../components/bookCard'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'bookList',
   components: {
-    navBar,
     bookCard
   },
   mounted () {
