@@ -8,15 +8,15 @@
           span.book-subtitle
             | ({{ currentBook.genre }})
         h3.book-detail
-          | Book author:
+          | {{ $t('bookDetail.bookAuthor') }}
           span.sub-detail
             | {{ currentBook.author }}
         h3.book-detail
-          | Publisher:
+          | {{ $t('bookDetail.publisher') }}
           span.sub-detail
             | {{ currentBook.publisher }}
         h3.book-detail
-          | Year of publication:
+          | {{ $t('bookDetail.yearPublication') }}
           span.sub-detail
             | {{ currentBook.year }}
 </template>

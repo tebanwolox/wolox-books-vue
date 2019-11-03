@@ -1,0 +1,11 @@
+{
+  "bookDetail": {
+    "bookAuthor": "Book author: ",
+    "publisher": "Publisher: ",
+    "yearPublication": "Year of publication: "
+  },
+  "navbar": {
+    "books": "BOOKS",
+    "signOut": "Sign Out"
+  }
+}
