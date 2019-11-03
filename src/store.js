@@ -46,9 +46,11 @@ export default new Vuex.Store({
     },
     bookDetail (context, id) {
       context.commit('SET_CURRENT_BOOK', null)
-      getBookDetail(id).then(res => {
-        context.commit('SET_CURRENT_BOOK', res.data)
-      })
+      getBookDetail(id)
+        .then(res => {
+          context.commit('SET_CURRENT_BOOK', res.data)
+        })
+        .catch(err => console.log(err))
     }
   },
   getters: {
