@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Register from './views/Register.vue'
 import Login from './views/Login.vue'
 import BookList from './views/BookList.vue'
+import BookDetail from './views/BookDetail.vue'
 import { routes } from './routes'
 import { isAuth } from './config/api'
 
@@ -18,25 +19,25 @@ const router = new Router({
       path: routes.LOGIN,
       name: 'login',
       component: Login,
-      meta: {
-        private: false
-      }
+      meta: { private: false }
     },
     {
       path: routes.SIGN_UP,
       name: 'register',
       component: Register,
-      meta: {
-        private: false
-      }
+      meta: { private: false }
     },
     {
       path: routes.BOOKS,
-      name: 'books',
       component: BookList,
-      meta: {
-        private: true
-      }
+      name: 'books',
+      meta: { private: true }
+    },
+    {
+      path: routes.BOOK_DETAIL,
+      name: 'bookDetail',
+      component: BookDetail,
+      meta: { private: true }
     }
   ]
 })
