@@ -61,4 +61,11 @@ export default {
   }
 }
 
+.book:hover {
+  background: var(--color-variation);
+  box-shadow: 10px 10px 5px 0px $grey-secundary;
+  cursor: pointer;
+  transform: scale(var(--scale), var(--scale));
+}
+
 </style>

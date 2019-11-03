@@ -39,6 +39,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .logo-container {
