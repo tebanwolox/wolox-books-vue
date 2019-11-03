@@ -1,24 +1,25 @@
 <template lang="pug">
   .detail-container
-    .book-container(v-if="currentBook")
-      img.book-logo(:src="currentBook.image_url" :alt="`${currentBook.title} logo`")
-      .book-info
-        h1.book-title
-          | {{ currentBook.title }}
-          span.book-subtitle
-            | ({{ currentBook.genre }})
-        h3.book-detail
-          | {{ $t('bookDetail.bookAuthor') }}
-          span.sub-detail
-            | {{ currentBook.author }}
-        h3.book-detail
-          | {{ $t('bookDetail.publisher') }}
-          span.sub-detail
-            | {{ currentBook.publisher }}
-        h3.book-detail
-          | {{ $t('bookDetail.yearPublication') }}
-          span.sub-detail
-            | {{ currentBook.year }}
+    transition(name="detail")
+      .book-container(v-if="currentBook")
+        img.book-logo(:src="currentBook.image_url" :alt="`${currentBook.title} logo`")
+        .book-info
+          h1.book-title
+            | {{ currentBook.title }}
+            span.book-subtitle
+              | ({{ currentBook.genre }})
+          h3.book-detail
+            | {{ $t('bookDetail.bookAuthor') }}
+            span.sub-detail
+              | {{ currentBook.author }}
+          h3.book-detail
+            | {{ $t('bookDetail.publisher') }}
+            span.sub-detail
+              | {{ currentBook.publisher }}
+          h3.book-detail
+            | {{ $t('bookDetail.yearPublication') }}
+            span.sub-detail
+              | {{ currentBook.year }}
 </template>
 
 <script>
@@ -90,6 +91,14 @@ export default {
     color: $grey-dark;
     font-size: 16px;
   }
+}
+
+.detail-enter-active {
+  transition: all .5s;
+}
+
+.detail-enter {
+  transform: scale(0);
 }
 
 </style>
